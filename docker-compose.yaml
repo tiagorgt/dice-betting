@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_USERNAME: postgres
+      DB_PASSWORD: postgres
+      DB_NAME: dice_betting
+    depends_on:
+      - db
+
+  db:
+    image: postgres:17
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: dice_betting
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+volumes:
+  db_data:
