@@ -1,14 +1,14 @@
 # Dice Betting Application
 
-This project is a NestJS-based server-side application that provides a GraphQL API for managing users and bets.
+This project is a [NestJS](https://nestjs.com/)-based server-side application that provides a [GraphQL](https://graphql.org/) API for managing users and bets. It is built using [TypeScript](https://www.typescriptlang.org/) and [Sequelize](https://sequelize.org/).
 
 ## Prerequisites
 
 Before you begin, ensure you have met the following requirements:
 
-- Node.js (>= 12.x)
-- npm (>= 6.x) or yarn (>= 1.x)
-- Docker (for running PostgreSQL in a container)
+- [Node.js](https://nodejs.org/) (>= 12.x)
+- [npm](https://www.npmjs.com/) (>= 6.x)
+- [Docker](https://www.docker.com/) (for running PostgreSQL in a container)
 
 ## Installation
 
