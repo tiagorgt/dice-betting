@@ -1,5 +1,5 @@
-import { Field, ID, ObjectType } from '@nestjs/graphql';
-import { Column, HasMany, Model, Table } from 'sequelize-typescript';
+import { Field, Float, ID, ObjectType } from '@nestjs/graphql';
+import { Column, DataType, HasMany, Model, Table } from 'sequelize-typescript';
 import { Bet } from '../bet/bet.model';
 
 @Table
@@ -22,8 +22,8 @@ export class User extends Model {
   /**
    * The balance of the user.
    */
-  @Column
-  @Field({ description: 'The balance of the user' })
+  @Column({ type: DataType.DECIMAL })
+  @Field(() => Float, { description: 'The balance of the user' })
   balance: number;
 
   /**

@@ -1,6 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { User } from './user.model';
+import { CreateUserInputDto } from './create-user-input.dto';
 
 @Injectable()
 export class UserService {
@@ -11,10 +12,6 @@ export class UserService {
     private userModel: typeof User,
   ) {}
 
-  /**
-   * Fetches all users.
-   * @returns {Promise<User[]>} A promise that resolves to an array of users.
-   */
   async findAll(): Promise<User[]> {
     this.logger.log('Fetching all users');
     const users = await this.userModel.findAll();
@@ -22,12 +19,6 @@ export class UserService {
     return users;
   }
 
-  /**
-   * Fetches a single user by their ID.
-   * @param {number} id - The ID of the user to fetch.
-   * @returns {Promise<User>} A promise that resolves to the user.
-   * @throws {Error} If the user is not found.
-   */
   async findOne(id: number): Promise<User> {
     this.logger.log(`Fetching user with id: ${id}`);
     const user = await this.userModel.findByPk(id);
@@ -39,5 +30,26 @@ export class UserService {
 
     this.logger.log(`Fetched user with id: ${id}`);
     return user;
+  }
+
+  async createUser(input: CreateUserInputDto): Promise<User> {
+    this.logger.log(`Creating user with name: ${input.name}`);
+    const user = await this.userModel.create({ ...input });
+    this.logger.log(`Created user with id: ${user.id}`);
+    return user;
+  }
+
+  async deleteUser(id: number): Promise<boolean> {
+    this.logger.log(`Deleting user with id: ${id}`);
+    const user = await this.userModel.findByPk(id);
+
+    if (!user) {
+      this.logger.error(`User not found with id: ${id}`);
+      throw new Error('User not found');
+    }
+
+    await user.destroy();
+    this.logger.log(`Deleted user with id: ${id}`);
+    return true;
   }
 }

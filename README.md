@@ -23,7 +23,7 @@ Before you begin, ensure you have met the following requirements:
 1. Start the application:
 
 ```bash
- docker-compose up -d
+ docker-compose up --build
  # or
  npm run start
 ```

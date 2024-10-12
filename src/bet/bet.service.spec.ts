@@ -25,6 +25,7 @@ describe('BetService', () => {
     });
 
     betMock.findByPk = jest.fn();
+    betMock.sequelize = { query: jest.fn() };
     userMock.findByPk = jest.fn();
 
     service = new BetService(betMock, userMock);
@@ -53,11 +54,21 @@ describe('BetService', () => {
   });
 
   describe('createBet', () => {
-    it('should throw an error if user not found or insufficient balance', async () => {
+    it('should throw an error if user not found', async () => {
       jest.spyOn(userMock, 'findByPk').mockResolvedValue(null);
 
       await expect(service.createBet(1, 100, 0.5)).rejects.toThrow(
-        'Insufficient balance or user not found',
+        'User not found',
+      );
+    });
+
+    it('should throw an error if insufficient balance', async () => {
+      jest
+        .spyOn(userMock, 'findByPk')
+        .mockResolvedValue(userMock.build({ balance: 50 }));
+
+      await expect(service.createBet(1, 100, 0.5)).rejects.toThrow(
+        'Insufficient balance',
       );
     });
 
@@ -92,10 +103,10 @@ describe('BetService', () => {
 
   describe('getBestBetPerUser', () => {
     it('should return the best bets per user', async () => {
-      const result = [betMock.build()];
-      jest.spyOn(betMock, 'findAll').mockResolvedValue(result);
+      const result = betMock.build();
+      jest.spyOn(betMock.sequelize, 'query').mockResolvedValue([result]);
 
-      expect(await service.getBestBetPerUser(5)).toBe(result);
+      expect(await service.getBestBetPerUser(5)).toEqual([result]);
     });
   });
 

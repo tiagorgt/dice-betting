@@ -74,7 +74,8 @@ export class BetService {
     const win = this.playDice(chance);
     const payout = win ? betAmount * (1 / chance) : 0;
 
-    user.balance += payout - betAmount;
+    user.balance = user.balance - betAmount;
+    user.balance = user.balance + payout;
     await user.save();
 
     this.logger.log(

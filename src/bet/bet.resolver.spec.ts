@@ -57,7 +57,9 @@ describe('BetResolver', () => {
       const result = betMock.build();
       jest.spyOn(service, 'createBet').mockResolvedValue(result);
 
-      expect(await resolver.createBet(1, 100, 0.5)).toBe(result);
+      expect(
+        await resolver.createBet({ betAmount: 100, chance: 0.5, userId: 1 }),
+      ).toBe(result);
     });
   });
 

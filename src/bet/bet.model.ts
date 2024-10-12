@@ -22,29 +22,29 @@ export class Bet extends Model {
    * The ID of the user who placed the bet.
    */
   @ForeignKey(() => User)
-  @Column
+  @Column({ type: DataType.INTEGER })
   @Field(() => ID, { description: 'The ID of the user who placed the bet' })
   userId: number;
 
   /**
    * The amount of the bet.
    */
-  @Column
+  @Column({ type: DataType.DECIMAL })
   @Field({ description: 'The amount of the bet' })
   betAmount: number;
 
   /**
    * The chance of winning the bet.
    */
-  @Column({ type: DataType.FLOAT })
+  @Column({ type: DataType.DECIMAL })
   @Field(() => Float, { description: 'The chance of winning the bet' })
   chance: number;
 
   /**
    * The payout of the bet.
    */
-  @Column
-  @Field({ description: 'The payout of the bet' })
+  @Column({ type: DataType.DECIMAL })
+  @Field(() => Float, { description: 'The payout of the bet' })
   payout: number;
 
   /**
