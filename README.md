@@ -106,6 +106,21 @@ mutation {
 }
 ```
 
+#### Get Best Bet Per User
+
+```graphql
+query {
+  getBestBetPerUser(limit: 2) {
+    id
+    userId
+    betAmount
+    chance
+    payout
+    win
+  }
+}
+```
+
 ## Running Tests
 
 1. Run unit tests:
