@@ -1,4 +1,4 @@
-# Dice Betting Application
+# 🎲 Dice Betting Application 🎲
 
 This project is a [NestJS](https://nestjs.com/)-based server-side application that provides a [GraphQL](https://graphql.org/) API for managing users and bets. It is built using [TypeScript](https://www.typescriptlang.org/) and [Sequelize](https://sequelize.org/).
 
